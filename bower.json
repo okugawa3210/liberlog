@@ -1,0 +1,41 @@
+{
+  "name": "liberlog",
+  "description": "library management system",
+  "main": "index.js",
+  "authors": [
+    "okugawa3210"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "library",
+    "management"
+  ],
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.0",
+    "bootstrap": "~3.3.6",
+    "font-awesome": "fontawesome#~4.5.0"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "less/**/!(variables).less",
+        "dist/js/bootstrap.js"
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "scss/font-awesome.scss",
+        "fonts/**"
+      ]
+    }
+  }
+}
