@@ -1,7 +1,19 @@
 var gulp = require('gulp');
 var mainBowerFiles = require('main-bower-files');
 var $ = require('gulp-load-plugins')();
+var runSequence = require('run-sequence');
 
+gulp.task('vendor:javascript', function() {
+  return gulp
+    .src(mainBowerFiles({
+      filter: '**/*.js'
+    }))
+    .pipe($.concat('vendor.min.js'))
+    .pipe($.uglify({
+      preserveComments: 'some'
+    }))
+    .pipe(gulp.dest('public/assets/javascripts'));
+});
 gulp.task('vendor:fontawesome', function() {
   return gulp
     .src(mainBowerFiles({
@@ -30,13 +42,12 @@ gulp.task('vendor:bootstrap:compile', function() {
     .pipe(gulp.dest('dist/stylesheets'));
 });
 gulp.task('vendor:bootstrap', function(callback) {
-  return $.runSequence(
+  return runSequence(
     'vendor:bootstrap:pre',
     'vendor:bootstrap:compile',
     callback
   );
 });
-
 gulp.task('vendor:stylesheet', function() {
   return gulp
     .src('dist/stylesheets/**/*')
@@ -44,7 +55,50 @@ gulp.task('vendor:stylesheet', function() {
     .pipe($.minifyCss())
     .pipe(gulp.dest('public/assets/stylesheets'))
 });
-
+gulp.task('vendor:font', function() {
+  return gulp
+    .src(mainBowerFiles({
+      filter: '**/*.{eot,svg,ttf,woff,woff2}'
+    }))
+    .pipe(gulp.dest('public/assets/fonts'));
+});
+gulp.task('vendor', function(callback) {
+  return runSequence(
+    'vendor:javascript', ['vendor:fontawesome', 'vendor:bootstrap'],
+    'vendor:stylesheet',
+    callback
+  );
+});
+gulp.task('javascript:deploy', function() {
+  return gulp
+    .src(['dist/templates/templates.js', 'src/javascripts/**/*.js'])
+    .pipe($.plumber())
+    .pipe($.concat('application.min.js'))
+    .pipe($.uglify({
+      preserveComments: 'some'
+    }))
+    .pipe(gulp.dest('public/assets/javascripts'));
+});
+gulp.task('javascript:template', function() {
+  return gulp
+    .src('src/templates/**/*.hbs')
+    .pipe($.plumber())
+    .pipe($.handlebars())
+    .pipe($.wrap('Handlebars.template(<%= contents %>)'))
+    .pipe($.declare({
+      namespace: 'Liberlog.Templates',
+      noRedeclare: true
+    }))
+    .pipe($.concat('templates.js'))
+    .pipe(gulp.dest('dist/templates'));
+});
+gulp.task('javascript', function(callback) {
+  return runSequence(
+    'javascript:template',
+    'javascript:deploy',
+    callback
+  );
+});
 gulp.task('stylesheet', function() {
   return gulp
     .src('src/stylesheets/application.scss')
@@ -57,42 +111,29 @@ gulp.task('stylesheet', function() {
     .pipe(gulp.dest('public/assets/stylesheets'));
 });
 
-gulp.task('deploy', function(callback) {
-  // vendor
-  gulp
-    .src(mainBowerFiles({
-      filter: '**/*.js'
-    }))
-    .pipe($.concat('vendor.min.js'))
-    .pipe($.uglify({
-      preserveComments: 'some'
-    }))
-    .pipe(gulp.dest('public/assets/javascripts'));
-  $.runSequence(
-    ['vendor:fontawesome', 'vendor:bootstrap'],
-    'vendor:stylesheet',
-    callback
-  );
-  gulp
-    .src(mainBowerFiles({
-      filter: '**/font-awesome/**/*.{eot,svg,ttf,woff,woff2}'
-    }))
-    .pipe(gulp.dest('public/assets/fonts'));
-
-  $.runSequence('stylesheet');
-});
+gulp.task('deploy', ['vendor', 'javascript', 'stylesheet']);
 
 gulp.task('watch', function() {
   'use strict';
   gulp.watch('src/lib/bootstrap/*', function() {
-    $.runSequence(
+    runSequence(
       'vendor:bootstrap:compile',
       'vendor:stylesheet'
     );
   });
   gulp.watch('src/stylesheets/**/*', function() {
-    $.runSequence(
+    runSequence(
       'stylesheet'
+    );
+  });
+  gulp.watch('src/javascripts/**/*', function() {
+    runSequence(
+      'javascript:deploy'
+    );
+  });
+  gulp.watch('src/templates/**/*', function() {
+    runSequence(
+      'javascript'
     );
   });
 });

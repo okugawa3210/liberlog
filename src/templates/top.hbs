@@ -1,0 +1,111 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-9 col-md-push-3">
+      <header id="main-header" class="clearfix">
+        <div class="row">
+          <div class="col-sm-6 col-xs-12">
+            <ol class="breadcrumb">
+              <li><a href="/">トップ</a>
+              </li>
+              <li class="active">図書一覧</a>
+              </li>
+            </ol>
+          </div>
+          <div class="col-sm-6 col-xs-12">
+            <form id="view-option-form" class="form-inline text-right">
+              <select name="max" class="form-control col-xs-pull-left">
+                <option value="20" selected>20件</option>
+                <option value="40">40件</option>
+                <option value="60">60件</option>
+              </select>
+              <button class="btn btn-default" type="button" name="large"><i class="fa fa-fw fa-th-large"></i>
+              </button>
+              <button class="btn btn-default" type="button" name="tile"><i class="fa fa-fw fa-th-list"></i>
+              </button>
+              <button class="btn btn-default" type="button" name="list"><i class="fa fa-fw fa-list"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </header>
+      <section id="book-list"></section>
+      <footer>
+        <nav class="text-center">
+          <ul class="pagination">
+            <li>
+              <a aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li><a>1</a>
+            </li>
+            <li><a>2</a>
+            </li>
+            <li><a>3</a>
+            </li>
+            <li><a>4</a>
+            </li>
+            <li><a>5</a>
+            </li>
+            <li>
+              <a aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </footer>
+    </div>
+    <div class="col-md-3 col-md-pull-9">
+      <aside>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <form>
+              <div class="input-group">
+                <input type="text" class="form-control search-text" placeholder="検索ワード">
+                <span class="input-group-btn">
+                  <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                </span>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" checked><span></span>すべて
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"><span></span>貸出中を除く
+                </label>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <i class="fa fa-fw fa-tags"></i>タグ一覧
+          </div>
+          <div class="panel-body">
+            <ul class="list-group category-list">
+              <li class="list-group-item">
+                <a>プログラム</a>
+                <span class="badge">4</span>
+              </li>
+              <li class="list-group-item">
+                <a>JavaScript</a>
+                <span class="badge">4</span>
+              </li>
+              <li class="list-group-item">
+                <a>Java</a>
+                <span class="badge">0</span>
+              </li>
+              <li class="list-group-item">
+                <a>PHP</a>
+                <span class="badge">0</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
