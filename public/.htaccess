@@ -1,0 +1,13 @@
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Methods "POST, GET, PUT, OPTIONS, PATCH, DELETE"
+Header always set Access-Control-Allow-Headers "X-Accept-Charset,X-Accept,Content-Type"
+
+DirectoryIndex index.html
+
+RewriteEngine on
+RewriteBase /liberlog/
+
+RewriteCond $1 !^(assets)
+RewriteRule \/assets\/(.*)$ assets/$1 [L]
+RewriteCond %{REQUEST_URI} /[^./]+$
+RewriteRule (.*) index.html

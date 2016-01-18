@@ -11,14 +11,16 @@ App.addInitializer(function() {
 
   // region
   this.addRegions({
-    pageMain: '#page-main'
+    pageHeader: '#page-header',
+    pageMain: '#page-main',
+    pageFooter: '#page-footer'
   });
 });
 
 App.onStart = function() {
   Backbone.history.start({
     pushState: true,
-    root: '/'
+    root: '/liberlog/'
   });
 };
 
@@ -43,6 +45,15 @@ Liberlog.Data = {
   }, {
     id: 3,
     name: 'HTML5'
+  }, {
+    id: 4,
+    name: 'Java'
+  }, {
+    id: 5,
+    name: 'PHP'
+  }, {
+    id: 6,
+    name: '小説'
   }],
   Books: [{
     id: 1,
@@ -63,7 +74,8 @@ Liberlog.Data = {
     views: 4,
     state: 1,
     borrower: '田中 太郎',
-    returnAt: '2016/01/13'
+    returnAt: '2016/01/13',
+    note: ''
   }, {
     id: 2,
     title: '徹底解説HTML5マークアップガイドブック',
@@ -83,7 +95,8 @@ Liberlog.Data = {
     views: 1,
     state: 0,
     borrower: '',
-    returnAt: ''
+    returnAt: '',
+    note: ''
   }, {
     id: 3,
     title: '入門 HTML5',
@@ -103,6 +116,7 @@ Liberlog.Data = {
     views: 0,
     state: 0,
     borrower: '',
-    returnAt: ''
+    returnAt: '',
+    note: ''
   }]
 };

@@ -12,6 +12,11 @@ $screen-xs: 480px;
 $screen-sm: 768px;
 $screen-md: 992px;
 $screen-lg: 1200px;
+
+.btn:focus, .btn:active, .btn:active:focus {
+  outline: none;
+}
+
 #page-header {
   .navbar-default {
     margin-bottom: 0;

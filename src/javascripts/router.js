@@ -4,10 +4,11 @@
 App.Router = Marionette.AppRouter.extend({
   appRoutes: {
     '': 'root',
+    'top': 'root',
+    'books': 'books',
+    'books/:id': 'books',
     'error': 'error',
-    '*notFound': 'notFound',
-    'top': 'top',
-    'books': 'books'
+    '*notFound': 'notFound'
   }
 });
 
@@ -16,18 +17,27 @@ App.Router = Marionette.AppRouter.extend({
  */
 App.Controller = {
   default: function() {
+    App.pageMain.reset();
   },
   root: function() {
     this.top();
   },
-  error: function() {
-  },
-  notFound: function() {
-  },
   top: function() {
-    App.pageMain.show(new App.TopView());
+    App.pageHeader.show(new App.HeaderView());
+    App.pageMain.show(new App.LayoutView());
+    App.pageFooter.show(new App.FooterView());
   },
-  books: function() {
-
+  books: function(id) {
+    App.pageHeader.show(new App.HeaderView());
+    App.pageMain.show(new App.LayoutView({
+      layoutType: 'book'
+    }));
+    App.pageFooter.show(new App.FooterView());
+  },
+  error: function() {},
+  notFound: function() {
+    App.pageHeader.show(new App.HeaderView());
+    App.pageMain.show(new App.NotFoundView());
+    App.pageFooter.show(new App.FooterView());
   }
 };
