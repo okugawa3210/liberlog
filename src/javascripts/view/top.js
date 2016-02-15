@@ -3,9 +3,10 @@
  */
 App.TopView = Marionette.LayoutView.extend({
   className: 'content-top',
-  template: Liberlog.Templates.top,
+  template: Liberlog.Templates.layout.top,
   events: {
-    'click #view-option-form button': 'onClickChangeLayoutButton'
+    'click .layout-btn': 'onClickChangeLayoutButton',
+    'click #load-more button': 'onClickLoadMoreButton'
   },
   regions: {
     bookList: '#book-list'
@@ -32,12 +33,17 @@ App.TopView = Marionette.LayoutView.extend({
       tagName: tagName,
       className: className,
       childView: childView,
-      collection: new Backbone.Collection(Liberlog.Data.Books)
+      collection: App.books
     }));
+
+    this.$('.layout-btn').removeClass('select').filter('[name="' + this.layoutType + '"]').addClass('select');
   },
   layoutType: 'tile',
   onClickChangeLayoutButton: function(e) {
-    this.layoutType = $(e.currentTarget).attr('name');
+    this.layoutType = e.currentTarget.name;
     this.renderBookList();
+  },
+  onClickLoadMoreButton: function() {
+    Backbone.history.navigate('books', true);
   }
 });

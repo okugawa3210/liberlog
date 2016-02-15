@@ -29,9 +29,16 @@ App.Controller = {
   },
   books: function(id) {
     App.pageHeader.show(new App.HeaderView());
-    App.pageMain.show(new App.LayoutView({
-      layoutType: 'book'
-    }));
+    if (id) {
+      App.pageMain.show(new App.LayoutView({
+        layoutType: 'book',
+        model: App.books.get(id)
+      }));
+    } else {
+      App.pageMain.show(new App.LayoutView({
+        layoutType: 'books'
+      }));
+    }
     App.pageFooter.show(new App.FooterView());
   },
   error: function() {},

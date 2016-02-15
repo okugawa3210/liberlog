@@ -15,6 +15,11 @@ App.addInitializer(function() {
     pageMain: '#page-main',
     pageFooter: '#page-footer'
   });
+
+  this.tags = new Backbone.Collection(Liberlog.Data.Tags);
+  this.books = new App.BooksCollection();
+
+  this.books.add(Liberlog.Data.Books);
 });
 
 App.onStart = function() {
@@ -38,22 +43,28 @@ $(function() {
 Liberlog.Data = {
   Tags: [{
     id: 1,
-    name: 'プログラム'
+    name: 'プログラム',
+    count: 3
   }, {
     id: 2,
-    name: 'JavaScript'
+    name: 'JavaScript',
+    count: 1
   }, {
     id: 3,
-    name: 'HTML5'
+    name: 'HTML5',
+    count: 2
   }, {
     id: 4,
-    name: 'Java'
+    name: 'Java',
+    count: 0
   }, {
     id: 5,
-    name: 'PHP'
+    name: 'PHP',
+    count: 0
   }, {
     id: 6,
-    name: '小説'
+    name: '小説',
+    count: 0
   }],
   Books: [{
     id: 1,
@@ -75,7 +86,7 @@ Liberlog.Data = {
     state: 1,
     borrower: '田中 太郎',
     returnAt: '2016/01/13',
-    note: ''
+    note: 'JavaScriptの基礎を学ぶならこれ！'
   }, {
     id: 2,
     title: '徹底解説HTML5マークアップガイドブック',

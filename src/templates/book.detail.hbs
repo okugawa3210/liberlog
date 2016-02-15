@@ -5,7 +5,7 @@
       </a>
     </div>
     <div class="media-body">
-      <h4 class="media-heading"><a class="title" href="javascript:void(0)" name="books/{{id}}">{{title}}</a>
+      <h4 class="media-heading">{{title}}
       </h4>
       <div class="category-tag">
         {{#each tags}}
@@ -24,6 +24,7 @@
         <dt>登録者</dt>
         <dd>{{registrant}}</dd>
       </dl>
+      <div class="well">{{note}}</div>
       <table class="book-status table table-bordered table-condensed">
         <tr>
           <td class="rating">

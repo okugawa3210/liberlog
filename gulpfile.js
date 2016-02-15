@@ -139,11 +139,11 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', ['watch'], function() {
-  gulp
-    .src('./public')
-    .pipe($.webserver({
-      port: 9999,
-      host: 'localhost',
-      open: true
-    }));
+  // gulp
+  //   .src('./public')
+  //   .pipe($.webserver({
+  //     port: 9999,
+  //     host: 'localhost',
+  //     open: true
+  //   }));
 });

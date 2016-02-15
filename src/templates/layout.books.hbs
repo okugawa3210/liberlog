@@ -1,0 +1,67 @@
+<header id="main-header" class="clearfix">
+  <div class="row">
+    <div class="col-sm-4 col-xs-12">
+      <ol class="breadcrumb">
+        <li><a href="javascript:void(0)" name="top">トップ</a>
+        </li>
+        <li class="active">
+          書籍一覧
+        </li>
+      </ol>
+    </div>
+    <div class="col-sm-8 col-xs-12">
+      <form id="view-option-form" class="form-inline text-right">
+        <div class="form-group">
+          <select name="sort" class="form-control">
+            <option value="1" selected>新着順</option>
+            <option value="2">閲覧数順</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <select name="max" class="form-control">
+            <option value="20" selected>20件</option>
+            <option value="40">40件</option>
+            <option value="60">60件</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <div class="btn-group">
+            <button class="btn btn-default layout-btn" type="button" name="large"><i class="fa fa-fw fa-th-large"></i>
+            </button>
+            <button class="btn btn-default layout-btn" type="button" name="tile"><i class="fa fa-fw fa-th-list"></i>
+            </button>
+            <button class="btn btn-default layout-btn" type="button" name="list"><i class="fa fa-fw fa-list"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</header>
+<section id="book-list"></section>
+<footer>
+  <nav class="text-center">
+    <ul class="pagination">
+      <li>
+        <a aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li><a>1</a>
+      </li>
+      <li><a>2</a>
+      </li>
+      <li><a>3</a>
+      </li>
+      <li><a>4</a>
+      </li>
+      <li><a>5</a>
+      </li>
+      <li>
+        <a aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</footer>

@@ -1,12 +1,12 @@
 /**
- * TopView
+ * BooksView
  */
-App.BookView = Marionette.LayoutView.extend({
+App.BooksView = Marionette.LayoutView.extend({
   className: 'content-top',
-  template: Liberlog.Templates.book,
+  template: Liberlog.Templates.layout.books,
   events: {
     'click #main-header .breadcrumb a': 'onClickBreadcrumb',
-    'click #view-option-form button': 'onClickChangeLayoutButton'
+    'click .layout-btn': 'onClickChangeLayoutButton'
   },
   regions: {
     bookList: '#book-list'
@@ -33,8 +33,10 @@ App.BookView = Marionette.LayoutView.extend({
       tagName: tagName,
       className: className,
       childView: childView,
-      collection: new Backbone.Collection(Liberlog.Data.Books)
+      collection: App.books
     }));
+
+    this.$('.layout-btn').removeClass('select').filter('[name="' + this.layoutType + '"]').addClass('select');
   },
   layoutType: 'tile',
   onClickBreadcrumb: function(e) {
@@ -46,44 +48,18 @@ App.BookView = Marionette.LayoutView.extend({
   }
 });
 
-
 /**
  * BookListBaseView
  */
 App.BookListBaseView = Marionette.ItemView.extend({
-  onBeforeRender: function() {
-    var
-      rating = this.model.get('rating'),
-      state = this.model.get('state'),
-      starCount = Math.floor(rating / 2),
-      halfStarCount = rating % 2,
-      noStartCount = 5 - starCount - halfStarCount,
-      i,
-      star = '',
-      ratingText = '',
-      stateText = '';
-
-    for (i = starCount; i--;) star += '<i class="fa fa-star"></i>';
-    for (i = halfStarCount; i--;) star += '<i class="fa fa-star-half-o"></i>';
-    for (i = noStartCount; i--;) star += '<i class="fa fa-star-o"></i>';
-
-    this.model.set('ratingStar', star);
-
-    if (rating > 8) ratingText = '非常に好評';
-    else if (rating > 6) ratingText = '好評';
-    else if (rating > 4) ratingText = '賛否両論';
-    else if (rating > 2) ratingText = '不評';
-    else if (rating > 0) ratingText = '非常に不評';
-    else ratingText = '評価無し';
-
-    if (state) stateText = '貸出中';
-    else stateText = '貸出可';
-
-    this.model.set('ratingText', ratingText);
-    this.model.set('stateText', stateText);
+  events: {
+    'click a.title': 'onClickTitle'
   },
   onRender: function() {
     this.$('[data-toggle="tooltip"]').tooltip();
+  },
+  onClickTitle: function(e) {
+    Backbone.history.navigate(e.currentTarget.name, true);
   }
 });
 
@@ -125,4 +101,47 @@ App.BookListEmptyView = Marionette.ItemView.extend({
  */
 App.BookListView = Marionette.CollectionView.extend({
   emptyView: App.BookListEmptyView
+});
+
+/**
+ * BookView
+ */
+App.BookView = Marionette.LayoutView.extend({
+  className: 'content-top',
+  template: Liberlog.Templates.layout.book,
+  events: {
+    'click #main-header .breadcrumb a': 'onClickBreadcrumb'
+  },
+  regions: {
+    bookDetail: '#book-detail',
+    bookList: '#book-list'
+  },
+  onRender: function() {
+    var book = this.options.model;
+    this.bookDetail.show(new App.BookDetailView({
+      model: book
+    }));
+    this.bookList.show(new App.BookListView({
+      tagName: 'div',
+      className: 'tile',
+      childView: App.BookListTileView,
+      collection: new App.BooksCollection(App.books.filter(function(model) {
+        return model.get('id') !== book.get('id');
+      }))
+    }));
+  },
+  onClickBreadcrumb: function(e) {
+    Backbone.history.navigate(e.currentTarget.name, true);
+  }
+});
+
+/**
+ * BookDetail
+ */
+App.BookDetailView = Marionette.ItemView.extend({
+  className: 'panel panel-default',
+  template: Liberlog.Templates.book.detail,
+  onRender: function() {
+    this.$('[data-toggle="tooltip"]').tooltip();
+  }
 });
