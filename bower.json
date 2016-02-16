@@ -24,7 +24,8 @@
     "bootstrap": "~3.3.6",
     "font-awesome": "fontawesome#~4.5.0",
     "backbone.marionette": "marionette#~2.4.4",
-    "handlebars": "2"
+    "handlebars": "2",
+    "moment": "~2.11.2"
   },
   "overrides": {
     "bootstrap": {

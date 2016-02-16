@@ -88,16 +88,37 @@ $screen-lg: 1200px;
     background-color: $brand-primary;
   }
 }
-#book-list {
-  .large {
-    .title {
-      height: floor($line-height-base * $font-size-base) * 2;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-    }
+#book-detail {} .large {
+  .title {
+    height: floor($line-height-base * $font-size-base) * 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  img {
+    width: 242px;
+    height: 200px;
+  }
+}
+.tile {
+  img {
+    width: 134px;
+    height: 180px;
+  }
+}
+.list {
+  img {
+    width: 64px;
+    height: 64px;
+  }
+}
+}
+#book-detail {
+  img {
+    width: 134px;
+    height: 180px;
   }
 }
 .book-status {

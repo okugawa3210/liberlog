@@ -32,6 +32,7 @@ App.LayoutView = Marionette.LayoutView.extend({
   onSubmitSideSearchForm: function(e) {
     e.preventDefault();
     e.stopPropagation();
+
     Backbone.history.navigate('books', true);
   }
 });
@@ -42,7 +43,19 @@ App.LayoutView = Marionette.LayoutView.extend({
 App.TagListItemView = Marionette.ItemView.extend({
   tagName: 'li',
   className: 'list-group-item',
-  template: Liberlog.Templates.tag.list
+  template: Liberlog.Templates.tag.list,
+  events: {
+    'click a': 'onClickTagItem'
+  },
+  onClickTagItem: function() {
+    App.books.fetch({
+      data: {
+        tagId: this.model.get('id')
+      }
+    }).done(function() {
+      Backbone.history.navigate('books', true);
+    });
+  }
 });
 
 /**
